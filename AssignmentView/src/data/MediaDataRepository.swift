@@ -61,7 +61,7 @@ class MediaDataRepository {
     
     static func getOneUrl(position: Int) -> URL? {
         var result:URL? = nil
-        if(position > 0 && position < data.capacity) {
+        if(position >= 0 && position < data.capacity) {
             result = URL(string: data[position])
         }
         return result
