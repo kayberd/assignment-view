@@ -9,6 +9,7 @@ target 'AssignmentView' do
 
   # Pods for AssignmentView
   pod 'Kingfisher', '~> 7.0'
+  pod 'Alamofire'
 
 
 end
