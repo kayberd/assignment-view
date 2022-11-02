@@ -5,7 +5,9 @@
 //  Created by Berkay Demirören on 2.11.2022.
 //
 
-import Foundation
+import Alamofire
+
+let ENDPOINT = "https://httpbin.org/post"
 
 protocol NetworkServiceInterface {
     static func sendLog(at: Int, withDurationInSeconds: Double) -> Bool
@@ -14,8 +16,23 @@ protocol NetworkServiceInterface {
 class NetworkService: NetworkServiceInterface {
     
     static func sendLog(at: Int, withDurationInSeconds: Double) -> Bool {
-        // TODO: Add send request and handle response logic
         print("Index \(at) durations: \((withDurationInSeconds*1000).rounded())")
+        
+        let parameters: [String: Double] = [
+            "index": Double(at),
+            "load_time": withDurationInSeconds,
+        ]
+        
+        AF.request(ENDPOINT, method: .post, parameters: parameters, encoder: .json).responseJSON { response in
+            switch response.result {
+                case .success(let data):
+                    print(data)
+                
+                case .failure(let err):
+                    print(err)
+            }
+        }
+        
         return true
     }
     
